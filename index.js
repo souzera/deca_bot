@@ -11,6 +11,12 @@ const options = {
     organization: process.env.OPENAI_ORGANIZATION_ID
 }
 
+const contato = (msg) => {
+    msg.getContact().then((result) =>{
+        return result
+    })
+}
+
 // WHATSAPP - SIDE
 
 client.on('qr', (qr) => {
@@ -24,14 +30,13 @@ client.on('ready', () => {
 })
 
 client.on('message', (msg)=> {
-    console.log(msg.body)
+    console.log(msg.body) 
 
     if (msg.body === '!ping') {
         msg.reply(`🏓 Pong in poucos ms`)
     }
-
-    if (msg.body === '!aniversario'){
-        msg.reply(`Feliz aniversário, ${msg.sender.pushname}! \n\n https://youtu.be/PMKrAU1IlnA`)
+    else if (msg.body === '!aniversario'){
+        msg.reply(`Feliz aniversário, ${contato(msg).pushname}! \n\n https://youtu.be/PMKrAU1IlnA`)
     }
 })
 
