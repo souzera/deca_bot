@@ -48,15 +48,27 @@ const getDavinciResponse = async (clientText) => {
 }
 
 const getDalleResponse = async (clientText) => {
-    const options = {
-        prompt: clientText, // Descrição da imagem
-        n: 1, // Número de imagens a serem geradas
-        size: "1024x1024", // Tamanho da imagem
+    const data = {
+        prompt: clientText,
+        n: 1, 
+        size: "1024x1024",
     }
 
     try {
-        const response = await openai.createImage(options);
-        return response.data.data[0].url
+        await axios(
+            {
+                method: "POST",
+                url: 'https://api.openai.com/v1/images/generations',
+                data,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${options.apiKey}`,
+                }
+            }
+        ).then((response) =>{
+            console.log(response.data.data[0])
+            return response.data.data[0]
+        })
     } catch (e) {
         return `❌ OpenAI Response Error: ${e.response.data.error.message}`
     }
@@ -65,12 +77,6 @@ const getDalleResponse = async (clientText) => {
 // WHATSAPP
 
 const client = new Client()
-
-const contato = (msg) => {
-    msg.getContact().then((result) => {
-        return result
-    })
-}
 
 client.on('qr', (qr) => {
     qrcode.generate(qr, { small: true })
@@ -83,6 +89,17 @@ client.on('ready', () => {
 })
 
 client.on('message', (msg) => {
+
+    const contato = (msg) => {
+        msg.getContact().then((result) => {
+            return result
+        })
+    }
+
+    const chat = (msg) => {
+        msg.getChat().then((result) => {return result})
+    }
+
     const bot_commands = {
         ping: "!ping",
         aniversario: "!aniversario",
@@ -115,7 +132,10 @@ client.on('message', (msg) => {
             })
             break
         case bot_commands.dalle:
-            msg.reply('Digite o texto que você quer que eu complete.')
+            const desc = msg.body.substring(msg.body.indexOf(" "));
+            getDalleResponse(desc).then((response) => {
+                msg.reply(`Imagem: ${response.url}`)
+            })
             break
     }
 })
