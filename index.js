@@ -11,34 +11,13 @@ dotenv.config()
 
 // HG API Weather
 
-const hg_api_key = process.env.HG_API_KEY
+const hg_api_key = process.env.HGAPI_TOKEN
 
 const getWeather = async (city) => {
 
     console.log(`Query city: ${city}`)
 
-    try {
-        let bot_response = ""
-        await axios.get(`https://api.hgbrasil.com/weather?key=${hg_api_key}&city_name=${city}`).then((response) => {
-            const temperature = response.data.results.temp
-            switch (temperature) {
-                case temperature < 15:
-                    bot_response += `🥶 Como está frio no Alaska. Fazem exatamente ${temperature} ℃`
-                    break
-                case temperature >= 15 && temperature < 28:
-                    bot_response += `😎 Suave na nave 🚀 só de boa. Fazem exatamente ${temperature} ℃`
-                    break
-                case temperature >= 28:
-                    bot_response += `🥵 Calor da febe homi, desliga o sol. Fazem exatamente ${temperature} ℃`
-                    break
-            }
-
-            return bot_response
-        })
-    } catch (err) {
-        console.log(err)
-        return "❌ Não foi possivel obter o clima."
-    }
+    
 }
 
 // OPENAI
@@ -122,24 +101,6 @@ client.on('ready', () => {
 
 client.on('message', (msg) => {
 
-    const contato = async () => {
-        await msg.getContact().then((result) => {
-            return result
-        })
-    }
-
-    contato().then((result) => {
-        console.log(`Send by: ${result}`)
-    })
-
-    const chat = async () => {
-        await msg.getChat().then((result) => { return result })
-    }
-
-    chat().then((result) => {
-        console.log(`Origin Chat: ${result}`)
-    })
-
     const bot_commands = {
         ping: "!ping",
         aniversario: "!aniversario",
@@ -159,14 +120,18 @@ client.on('message', (msg) => {
             msg.reply('🏓 Pong in poucos ms')
             break
         case bot_commands.aniversario:
-            msg.reply(`Feliz aniversário, ${contato.pushname}! \n\n`)
+            const getPushname = async () => {
+                await msg.getContact().then((response) => {
+                    msg.reply(`Feliz aniversário! ${response.pushname} 🎈🍰\n\n`)
+                })
+            }
+            getPushname()
             break
         case bot_commands.help:
             msg.reply(`Comandos disponíveis: \n\n !ping \n !gpt SEU_TEXTO \n !help`)
             break
         case bot_commands.gpt:
-            const question = msg.body.substring(msg.body.indexOf(" "));
-            console.log(question)
+            const question = msg.body.substring(msg.body.indexOf(" ") + 1);
             getDavinciResponse(question).then((response) => {
                 msg.reply(response)
             })
@@ -175,7 +140,40 @@ client.on('message', (msg) => {
             msg.reply('Ops! Comando desativado ❌')
             break
         case bot_commands.clima:
-            msg.reply('Ops! Comando desativado ❌')
+            const weather = async () => {
+
+                const city = (msg.body.includes(' ')) ? msg.body.substring(msg.body.indexOf(" ") + 1): null;
+                const url = `https://api.hgbrasil.com/weather?key=${hg_api_key}&city_name=${city}`
+
+                console.log(url)
+
+                try {
+                    await axios(
+                        {
+                            method: "GET",
+                            url
+                        }
+                    ).then((response) => {
+                        const temperature = response.data.results.temp
+                        console.log(`Temperatura: ${temperature}`)
+
+                        if (temperature < 15){
+                            msg.reply(`🥶 Como está frio no Alaska. Fazem exatamente ${temperature} ℃`)
+                            console.log("frio")
+                        } else if (temperature >=15 && temperature < 28){
+                            msg.reply(`😎 Suave na nave 🚀 só de boa. Fazem exatamente ${temperature} ℃`)
+                            console.log("bom")
+                        } else {
+                            msg.reply(`🥵 Calor da febe homi, desliga o sol. Fazem exatamente ${temperature} ℃`)
+                            console.log("calor")
+                        }
+                    })
+                } catch (err) {
+                    console.log(err)
+                    msg.reply("❌ Não foi possivel obter o clima.")
+                }
+            }
+            msg.reply("Ops! Comando desativado❌")
             break
     }
 })
