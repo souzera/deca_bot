@@ -11,13 +11,12 @@ dotenv.config()
 
 // HG API Weather
 
-const hg_api_key = process.env.HGAPI_TOKEN
+//const hg_api_key = process.env.HGAPI_TOKEN
 
 const getWeather = async (city) => {
 
     console.log(`Query city: ${city}`)
-
-    
+ 
 }
 
 // OPENAI
