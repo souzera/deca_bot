@@ -5,19 +5,9 @@ import axios from 'axios'
 
 import * as pkg from 'whatsapp-web.js'
 
-const { Client, MessageMedia } = pkg;
+const { Client } = pkg;
 
 dotenv.config()
-
-// HG API Weather
-
-//const hg_api_key = process.env.HGAPI_TOKEN
-
-const getWeather = async (city) => {
-
-    console.log(`Query city: ${city}`)
- 
-}
 
 // OPENAI
 
@@ -58,6 +48,7 @@ const getDavinciResponse = async (clientText) => {
     }
 }
 
+// UNUSED
 const getDalleResponse = async (clientText) => {
     const data = {
         prompt: clientText,
@@ -130,49 +121,16 @@ client.on('message', (msg) => {
             msg.reply(`Comandos disponíveis: \n\n !ping \n !gpt SEU_TEXTO \n !help`)
             break
         case bot_commands.gpt:
-            const question = msg.body.substring(msg.body.indexOf(" ") + 1);
-            getDavinciResponse(question).then((response) => {
+            const question_gpt = msg.body.substring(msg.body.indexOf(" ") + 1);
+            getDavinciResponse(question_gpt).then((response) => {
                 msg.reply(response)
             })
             break
         case bot_commands.dalle:
-            msg.reply('Ops! Comando desativado ❌')
-            break
-        case bot_commands.clima:
-            const weather = async () => {
+            const question_dalle = msg.body.substring(msg.body.indexOf(" ") + 1);
+            //getDalleResponse(question_dalle).then((response) => {})
+                msg.reply('Ops! Comando desativado ❌')
 
-                const city = (msg.body.includes(' ')) ? msg.body.substring(msg.body.indexOf(" ") + 1): null;
-                const url = `https://api.hgbrasil.com/weather?key=${hg_api_key}&city_name=${city}`
-
-                console.log(url)
-
-                try {
-                    await axios(
-                        {
-                            method: "GET",
-                            url
-                        }
-                    ).then((response) => {
-                        const temperature = response.data.results.temp
-                        console.log(`Temperatura: ${temperature}`)
-
-                        if (temperature < 15){
-                            msg.reply(`🥶 Como está frio no Alaska. Fazem exatamente ${temperature} ℃`)
-                            console.log("frio")
-                        } else if (temperature >=15 && temperature < 28){
-                            msg.reply(`😎 Suave na nave 🚀 só de boa. Fazem exatamente ${temperature} ℃`)
-                            console.log("bom")
-                        } else {
-                            msg.reply(`🥵 Calor da febe homi, desliga o sol. Fazem exatamente ${temperature} ℃`)
-                            console.log("calor")
-                        }
-                    })
-                } catch (err) {
-                    console.log(err)
-                    msg.reply("❌ Não foi possivel obter o clima.")
-                }
-            }
-            msg.reply("Ops! Comando desativado❌")
             break
     }
 })
