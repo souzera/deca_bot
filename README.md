@@ -7,6 +7,8 @@ Chatbot para Whatsapp integrado como API do ChatGPT
 - !ping
 - !aniversario
 - !gpt {texto}
+- !traduzir {texto}
+- !brasileirao
 
 ## Instalação
 
