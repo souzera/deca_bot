@@ -1,5 +1,6 @@
 import axios from "axios";
 import { options } from "../../client.js";
+import stringTable from "string-table";
 
 export async function getTabela(){
     // id Brasileirão serie A 2023 = 10 
@@ -10,7 +11,7 @@ export async function getTabela(){
                 "Authorization": `Bearer ${options.futebol.test}`
             }
         }).then(response => {
-            tabela_response +=  replyTabela(converterTabela(response.data))
+            tabela_response +=  replySimpleTabela(converterTabela(response.data))
         }).catch(error => {
             console.log(error.statusCode);
         }) 
@@ -43,12 +44,20 @@ export function converterTabela(tabela){
     return tabelaConvertida
 }
 
-export function replyTabela(tabela){
-    let tabelaReply = "🏆 Campeonato Brasileiro 2023\n n - Time - pts\n\n"
+export function replySimpleTabela(tabela){
+    let tabelaReply = "🏆 Campeonato Brasileiro 2023\n\n"
 
-    tabela.forEach((time) => {
-        tabelaReply += `${time.posicao} - ${time.nome} - ${time.pontos} pts\n`
+    let novatabela = []
+
+    tabela.map((time) => {
+        novatabela.push({
+            posicao: time.posicao,
+            nome: time.nome,
+            pontos: time.pontos
+        })
     })
+
+    tabelaReply += stringTable.create(novatabela)
 
     return tabelaReply
 }

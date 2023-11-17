@@ -15,6 +15,7 @@
     "dotenv": "^16.3.1",
     "openai": "^4.14.0",
     "qrcode-terminal": "^0.12.0",
+    "string-table": "^0.1.5",
     "whatsapp-web.js": "^1.23.0"
   }
 }
