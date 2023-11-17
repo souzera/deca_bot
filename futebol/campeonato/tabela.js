@@ -8,7 +8,7 @@ export async function getTabela(){
         let tabela_response = ""
         await axios.get("https://api.api-futebol.com.br/v1/campeonatos/10/tabela", {
             headers:{
-                "Authorization": `Bearer ${options.futebol.test}`
+                "Authorization": `Bearer ${options.futebol.live}`
             }
         }).then(response => {
             tabela_response +=  replySimpleTabela(converterTabela(response.data))

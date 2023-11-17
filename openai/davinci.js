@@ -1,5 +1,5 @@
-import { axios } from "axios"
-import { options } from "../client"
+import axios  from "axios"
+import { options } from "../client.js"
 
 export async function getDavinciResponse(clientText){
     const davinci = {

@@ -1,6 +1,7 @@
 import qrcode from 'qrcode-terminal'
 import * as pkg from 'whatsapp-web.js'
 import { getTabela } from './futebol/campeonato/tabela.js';
+import { getDavinciResponse } from './openai/davinci.js';
 
 const { Client } = pkg;
 
