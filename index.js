@@ -1,11 +1,6 @@
 import qrcode from 'qrcode-terminal'
 import * as pkg from 'whatsapp-web.js'
 import { getTabela } from './futebol/campeonato/tabela.js';
-import { getProximoJogo } from './futebol/time/proximos-jogos.js';
-
-getProximoJogo("botafogo").then(response => {
-    console.log(response)
-})
 
 const { Client } = pkg;
 
