@@ -3,10 +3,12 @@ import * as pkg from 'whatsapp-web.js'
 import { getTabela } from './futebol/campeonato/tabela.js';
 import { getDavinciResponse } from './openai/davinci.js';
 import { getModels } from './openai/models.js';
+import { showUnique } from './util/show_unique.js';
 
 const { Client } = pkg;
 
 const client = new Client()
+
 
 client.on('qr', (qr) => {
     qrcode.generate(qr, { small: true })
@@ -28,13 +30,13 @@ client.on('message', (msg) => {
         dalle: '!dalle',
         clima: "!clima",
         brasileirao: "!brasileirao",
-        traduzir: "!traduzir"
+        traduzir: "!traduzir",
+        show: "!show"
     }
 
     let firstWord = ((msg.body.includes(' ')) ? msg.body.substring(0, msg.body.indexOf(" ")) : msg.body);
 
-    console.log(firstWord)
-    console.log(msg.body)
+    console.log(msg)
 
     switch (firstWord) {
         case bot_commands.ping:
@@ -75,6 +77,9 @@ client.on('message', (msg) => {
                     msg.reply(response)
                 })
             }))
+            break
+        case bot_commands.show:
+            showUnique(msg)
             break
     }
 })
