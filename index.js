@@ -5,6 +5,7 @@ import { getDavinciResponse } from './openai/davinci.js';
 import { getModels } from './openai/models.js';
 import { showUnique } from './util/show_unique.js';
 import { getTop10 } from './games/valorant/leaderboard.js';
+import { getCurrentRank } from './games/valorant/rank.js';
 
 const { Client } = pkg;
 
@@ -34,7 +35,8 @@ client.on('message', (msg) => {
         traduzir: "!traduzir",
         show: "!show",
         transcribe: "!transcribe",
-        vlrLeaderboard: "!top10valorant",
+        vlrLeaderboard: "!leaderboard",
+        rank: "!rank"
     }
 
     let firstWord = ((msg.body.includes(' ')) ? msg.body.substring(0, msg.body.indexOf(" ")) : msg.body);
@@ -95,6 +97,15 @@ client.on('message', (msg) => {
             getTop10(regiao).then((response) => {
                 msg.reply(response)
             })
+            break
+        case bot_commands.rank:
+            const gametag = msg.body.substring(msg.body.indexOf(" ") + 1);
+            const gameName = gametag.substring(0, gametag.indexOf("#"))
+            const tagName = gametag.substring(gametag.indexOf("#") + 1)
+            getCurrentRank(gameName, tagName, "br").then((response) => {
+                msg.reply(response)
+            })
+            break
     }
 })
 
