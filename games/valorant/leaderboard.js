@@ -3,13 +3,12 @@ import { VALORANT_API } from '../valorant/server.js'
 import { regiaoSelector } from './regiao.js'
 
 export default async function getLeaderboard(regiao) {
-    let url = `${VALORANT_API}/valorant/v1/leaderboard/${regiao}`.toLowerCase()
-    if (!validateRegion(regiao)) { url = `${VALORANT_API}/valorant/v1/leaderboard/br` }
+
+    const url = `${VALORANT_API}/valorant/v1/leaderboard/${regiaoSelector(regiao)}` 
     const leaderboard = await axios.get(url).then((response) => {
         return response.data
     })
-
-    if (!(validateRegion(regiao))) {console.log("⛔ Atenção: Região inválida. Usando região padrão (br)");}
+    
     return leaderboard
 }
 
