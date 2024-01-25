@@ -4,6 +4,7 @@ import { getTabela } from './futebol/campeonato/tabela.js';
 import { getDavinciResponse } from './openai/davinci.js';
 import { getModels } from './openai/models.js';
 import { showUnique } from './util/show_unique.js';
+import { getTop10 } from './games/valorant/leaderboard.js';
 
 const { Client } = pkg;
 
@@ -33,6 +34,7 @@ client.on('message', (msg) => {
         traduzir: "!traduzir",
         show: "!show",
         transcribe: "!transcribe",
+        vlrLeaderboard: "!top10valorant",
     }
 
     let firstWord = ((msg.body.includes(' ')) ? msg.body.substring(0, msg.body.indexOf(" ")) : msg.body);
@@ -88,7 +90,11 @@ client.on('message', (msg) => {
             //transcribe(msg)
             msg.reply("Ops! Comando desativado ❌")
             break
-        case bot_commands.rank:
+        case bot_commands.vlrLeaderboard:
+            const regiao = msg.body.substring(msg.body.indexOf(" ") + 1);
+            getTop10(regiao).then((response) => {
+                msg.reply(response)
+            })
     }
 })
 
