@@ -1,7 +1,7 @@
 import  axios from "axios"
 import { options } from "../client.js"
 
-//unused
+
 export async function getDalleResponse(clientText){
     const data = {
         prompt: clientText,
@@ -21,6 +21,8 @@ export async function getDalleResponse(clientText){
                 }
             }
         ).then((response) => {
+            console.log("OPEN AI RESPONSE: ")
+            console.log(response.data)
             return response.data.data[0].url
         })
     } catch (e) {

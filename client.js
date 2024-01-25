@@ -10,5 +10,8 @@ export const options = {
     futebol:{
         test: process.env.FUTEBOL_TEST,
         live: process.env.FUTEBOL_LIVE
+    },
+    assemblyaI:{
+        apiKey: process.env.ASSEMBLYAI_API_KEY
     }
 }

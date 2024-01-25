@@ -31,12 +31,11 @@ client.on('message', (msg) => {
         clima: "!clima",
         brasileirao: "!brasileirao",
         traduzir: "!traduzir",
-        show: "!show"
+        show: "!show",
+        transcribe: "!transcribe",
     }
 
     let firstWord = ((msg.body.includes(' ')) ? msg.body.substring(0, msg.body.indexOf(" ")) : msg.body);
-
-    console.log(msg)
 
     switch (firstWord) {
         case bot_commands.ping:
@@ -67,7 +66,11 @@ client.on('message', (msg) => {
             break
         case bot_commands.dalle:
             const question_dalle = msg.body.substring(msg.body.indexOf(" ") + 1);
-            //getDalleResponse(question_dalle).then((response) => {})
+            //getDalleResponse(question_dalle).then((response) => {
+            //    console.log("-=-=-=-=-=-=-=-\n\n")
+            //    console.log(response)
+            //    msg.reply(new pkg.MessageMedia('image/png', response))
+            //})
             msg.reply('Ops! Comando desativado ❌')
             break
         case bot_commands.brasileirao:
@@ -81,6 +84,11 @@ client.on('message', (msg) => {
         case bot_commands.show:
             showUnique(msg)
             break
+        case bot_commands.transcribe:
+            //transcribe(msg)
+            msg.reply("Ops! Comando desativado ❌")
+            break
+        case bot_commands.rank:
     }
 })
 
