@@ -20,7 +20,7 @@ export function statusPartida(pontos) {
     if (smurfando.includes(pontos)) return 'compro o jogo parece'
 }
 
-export function statusPartidaDetalhado(data){
+export function statusPartidaDetalhado(data) {
 
     let reply = ""
 
@@ -31,21 +31,19 @@ export function statusPartidaDetalhado(data){
     partidas = partidas.reverse()
 
     partidas.map((partida, index) => {
-        reply += `*Partida ${index+1}: ${partida.meta.map.name} | ${partida.stats.character.name}*\n\n`
+        reply += `*Partida ${index + 1}: ${partida.meta.map.name} | ${partida.stats.character.name}*\n\n`
 
         reply += verificarResultado(partida.stats.team, partida.teams)
 
         reply += "\n"
 
-        reply += `Abates: ${partida.stats.kills}\n`
-        reply += `Mortes: ${partida.stats.deaths}\n`
-        reply += `Assistências: ${partida.stats.assists}\n`
+        reply += verificarDesempenhoIndividual(partida.stats.kills, partida.stats.deaths, partida.stats.assists)
 
         reply += "\n"
 
-        reply += `HS: ${calculrarHS(partida.stats.shots)}%\n`
-        reply += `Dano Causado: ${partida.stats.damage.made}\n`
-        reply += `Dano Sofrido: ${partida.stats.damage.received}\n`
+        reply += `*HS:* ${calculrarHS(partida.stats.shots)}%\n`
+        reply += `*Dano Causado:* ${partida.stats.damage.made}\n`
+        reply += `*Dano Sofrido:* ${partida.stats.damage.received}\n`
 
         reply += "==================================\n\n"
     })
@@ -53,18 +51,18 @@ export function statusPartidaDetalhado(data){
     return reply
 }
 
-function calculrarHS(shots){
-        const total = shots.head + shots.body + shots.leg
-        const hs = (100*shots.head)/total
-        return Number(hs.toFixed(2))
+function calculrarHS(shots) {
+    const total = shots.head + shots.body + shots.leg
+    const hs = (100 * shots.head) / total
+    return Number(hs.toFixed(2))
 }
 
-function verificarResultado(equipe, placar){
+function verificarResultado(equipe, placar) {
 
     let meuPontos = 0
     let inimigoPontos = 0
 
-    if (equipe.toLowerCase() === "blue"){
+    if (equipe.toLowerCase() === "blue") {
         meuPontos += placar.blue
         inimigoPontos += placar.red
     } else {
@@ -77,14 +75,14 @@ function verificarResultado(equipe, placar){
     resultado += `Placar: ${meuPontos}x${inimigoPontos} \n`
 
     if (meuPontos > inimigoPontos) {
-        resultado += "Vitória "
+        resultado += "✅ *Vitória* "
 
-        const diff = meuPontos-inimigoPontos
+        const diff = meuPontos - inimigoPontos
 
         switch (diff) {
             case 1:
                 //13x12
-                resultado += " | Final de Major"
+                resultado += " | Final de Major 🏆"
                 break
             case 2:
                 //13x11
@@ -92,19 +90,19 @@ function verificarResultado(equipe, placar){
                 break
             case 3:
                 //13x10
-                resultado += " | Quase suei kkk"
+                resultado += " | Quase suei kkk 🥵"
                 break
             case 4:
                 //13x9
-                resultado += " | Achei fácil, ruins"
+                resultado += " | Achei fácil, ruins 😎"
                 break
             case 5:
                 //13x8
-                resultado += " | De boa"
+                resultado += " | De boa 🕊️🦚"
                 break
             case 6:
                 //13x7
-                resultado += " | Jogo Normal"
+                resultado += " | Jogo Normal 🗿🍷"
                 break
             case 7:
                 //13x6
@@ -112,7 +110,7 @@ function verificarResultado(equipe, placar){
                 break
             case 8:
                 //13x5
-                resultado += " | ❌ Inimigo do 12x5"
+                resultado += " | Inimigo do 12x5 ❌"
                 break
             case 9:
                 //13x4
@@ -124,11 +122,11 @@ function verificarResultado(equipe, placar){
                 break
             case 11:
                 //13x2
-                resultado += " | KKK tava indo mata-mata??"
+                resultado += " | KKK tava indo mata-mata??🪖🔫"
                 break
             case 12:
                 //13x2
-                resultado += " | KKK tava no the range??"
+                resultado += " | KKK tava no the range??🏹"
                 break
             case 13:
                 //13x2
@@ -137,19 +135,19 @@ function verificarResultado(equipe, placar){
         }
     }
 
-    else if (meuPontos < inimigoPontos){
-        resultado += "Derrota"
+    else if (meuPontos < inimigoPontos) {
+        resultado += "⛔ *Derrota*"
 
         const diff = inimigoPontos - meuPontos
 
         switch (diff) {
             case 1:
                 //13x12
-                resultado += " | Final de Major"
+                resultado += " | Final de Major 🏆"
                 break
             case 2:
                 //13x11
-                resultado += " | Quase vira Major Pae"
+                resultado += " | Quase vira Major Pae😮‍💨"
                 break
             case 3:
                 //13x10
@@ -157,7 +155,7 @@ function verificarResultado(equipe, placar){
                 break
             case 4:
                 //13x9
-                resultado += " | Achei fácil, ruins"
+                resultado += " | Achei fácil, ruins 🫡"
                 break
             case 5:
                 //13x8
@@ -173,7 +171,7 @@ function verificarResultado(equipe, placar){
                 break
             case 8:
                 //13x5
-                resultado += " | ❌ CANALHAS! Inimigos do 12x5"
+                resultado += " |  CANALHAS! Inimigos do 12x5 ❌"
                 break
             case 9:
                 //13x4
@@ -181,15 +179,15 @@ function verificarResultado(equipe, placar){
                 break
             case 10:
                 //13x3
-                resultado += " | É a primeira do dia🧐"
+                resultado += " | Nem Nóe 🛳️🐎🐂🐆"
                 break
             case 11:
                 //13x2
-                resultado += " | Abri só pra ver a loja"
+                resultado += " | Abri só pra ver a loja🏪"
                 break
             case 12:
                 //13x1
-                resultado += " | Vai pro LOL mano"
+                resultado += " | Vai pro LOL mano🧚✨"
                 break
             case 13:
                 //13x0
@@ -201,4 +199,38 @@ function verificarResultado(equipe, placar){
     resultado += "\n"
 
     return resultado
+}
+
+function verificarDesempenhoIndividual(kills, deaths, assists) {
+
+    let reply = ""
+
+    const kda = (kills + assists) / deaths
+
+    reply += `*KDA:* ${kda.toFixed(2)} | `
+
+    if (kda < 0.5) reply += "Tava deitado na cama, novo Zombs?🛌\n"
+    else if (kda >= 0.5 && kda < 1) reply += "Esqueceu o mouse no banheiro?🚽\n"
+    else if (kda >= 1 && kda < 1.5) reply += "Fico Positivo 1 pelo menos 🤙\n"
+    else if (kda >= 1.5 && kda < 2) reply += "El Craque del Mundo 🌎\n"
+    else if (kda >= 2 && kda < 3) reply += "Indo pra Escola??🎒🎒\n"
+    else if (kda >= 3) reply += "Que isso moreno, tenha calma!🔥🔥\n"
+
+    reply += "\n"
+    reply += `*Abates:* ${kills}`
+    if (kills > 29) reply += " | MATUE👹"
+    reply += "\n"
+    
+    reply += `*Mortes:* ${deaths}`
+    if (deaths > 15) reply += " | KURIRIN🎒"
+    reply += "\n"
+    
+    reply += `*Assistências:* ${assists}`
+    if (assists > 9) reply += " | DE BRUYNE DO LOW ELO🕴️"
+    reply += "\n"
+    
+    reply += "\n"
+
+
+    return reply
 }

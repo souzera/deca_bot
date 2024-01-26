@@ -20,7 +20,7 @@ export async function getTop10(regiao) {
 
     top10.map((player,index) => {
 
-        tabela += `${index}: ${player.gameName} #${player.tagLine} - *${player.rankedRating}*rr - *${player.numberOfWins}* wins\n`
+        tabela += `${index+1}: ${player.gameName} #${player.tagLine} - ${player.rankedRating}rr - ${player.numberOfWins} wins\n`
     })
 
     return tabela

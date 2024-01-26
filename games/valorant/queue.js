@@ -19,13 +19,22 @@ export default async function getQueueHistory(regiao, puuid){
 
 export async function getQueueHirstoryByGameTag(gameName, tagName){
     const ppuid = await getPUUID(gameName, tagName).then((response) => {
-        return response.data.puuid
+        if (response.status === 200) return response.data.puuid
+        else return "not_found"
+    }).catch((error) => {
+        console.log(error)
+        return "not_found"
     })
 
-    const queueHistory = await getQueueHistory('br', ppuid).then((response) => {
-        console.log(response)
-        return statusPartidaDetalhado(response)
-    })
+    if (ppuid === "not_found") return "🥸🥸 Jogador não encontrado..."
 
-    return queueHistory
+    else{
+
+        const queueHistory = await getQueueHistory('br', ppuid).then((response) => {
+            console.log(response)
+            return statusPartidaDetalhado(response)
+        })
+    
+        return queueHistory
+    }
 }

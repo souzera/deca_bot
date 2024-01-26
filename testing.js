@@ -7,4 +7,4 @@ import { statusPartidaDetalhado } from "./games/valorant/matches-status.js"
 
 //getPUUID("inimigodaverdade", "3527", 'br').then((response) => {console.log(response)})
 
-getQueueHirstoryByGameTag("inimigodaverdade", "3527", 'br').then((response) => {console.log(response)})
+getQueueHirstoryByGameTag("Amado Batista", "ata", 'br').then((response) => {console.log(response)})
