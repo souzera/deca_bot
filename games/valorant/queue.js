@@ -32,6 +32,8 @@ export async function getQueueHirstoryByGameTag(gameName, tagName){
 
         const queueHistory = await getQueueHistory('br', ppuid).then((response) => {
             console.log(response)
+            if (response.data.length === 0) return "🕵️🤫 O jogador ocultou os dados..."
+            else
             return statusPartidaDetalhado(response)
         })
     
