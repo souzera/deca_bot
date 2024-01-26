@@ -7,6 +7,7 @@ import { showUnique } from './util/show_unique.js';
 import { getTop10 } from './games/valorant/leaderboard.js';
 import { getCurrentRank } from './games/valorant/rank.js';
 import getQueueHistory, { getQueueHirstoryByGameTag } from './games/valorant/queue.js';
+import { commands, getHelp } from './util/commands.js';
 
 const { Client } = pkg;
 
@@ -25,21 +26,7 @@ client.on('ready', () => {
 
 client.on('message', (msg) => {
 
-    const bot_commands = {
-        ping: "!ping",
-        aniversario: "!aniversario",
-        help: "!help",
-        gpt: "!gpt",
-        dalle: '!dalle',
-        clima: "!clima",
-        brasileirao: "!brasileirao",
-        traduzir: "!traduzir",
-        show: "!show",
-        transcribe: "!transcribe",
-        vlrLeaderboard: "!leaderboard",
-        rank: "!rank",
-        queue: "!queue",
-    }
+    const bot_commands = commands
 
     let firstWord = ((msg.body.includes(' ')) ? msg.body.substring(0, msg.body.indexOf(" ")) : msg.body);
 
@@ -56,7 +43,7 @@ client.on('message', (msg) => {
             getPushname()
             break
         case bot_commands.help:
-            msg.reply(`Comandos disponíveis: \n\n !ping \n !gpt SEU_TEXTO \n !help \n !brasileirao`)
+            msg.reply(getHelp())
             break
         case bot_commands.gpt:
             const question_gpt = msg.body.substring(msg.body.indexOf(" ") + 1);
