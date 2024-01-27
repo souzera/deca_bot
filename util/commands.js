@@ -12,6 +12,7 @@ export const commands = {
     vlrLeaderboard: "!leaderboard",
     rank: "!rank",
     queue: "!queue",
+    kahzix: "!kahzix",
 }
 
 const help = [
@@ -93,21 +94,20 @@ const help = [
         desc: "Retorna últimas 5 partidas competitivas do jogador no VALORANT",
         status: true
     },
+    {
+        name: commands.kahzix,
+        syntax: commands.kahzix,
+        desc: "Retorna uma imagem do Kha'Zix",
+        status: true
+    },
 ]
 
 
 
 export function getHelp() {
-
-
     let reply = `🤖 Comandos disponíveis: \n\n`
-
-    help
-
     help.forEach((command) => {
         if (command.status) reply += `*${command.syntax}* - ${command.desc} \n\n`
     })
-
     return reply
-
 }

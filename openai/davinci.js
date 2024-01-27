@@ -16,7 +16,7 @@ export async function getDavinciResponse(clientText){
                 method: "POST",
                 url: "https://api.openai.com/v1/chat/completions",
                 data: {
-                    model: "gpt-4",
+                    model: "gpt-3.5-turbo-0301",
                     messages: [{ "role": "user", "content": davinci.prompt },]
                 },
                 headers: {
