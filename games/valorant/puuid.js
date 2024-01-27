@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { VALORANT_API } from '../valorant/server.js'
 
-export default async function getPlayer(gameName, tagName){
+export async function getPlayer(gameName, tagName){
     const player = axios.get(`${VALORANT_API}/valorant/v1/account/${gameName}/${tagName}`).then((response) => {
         return response.data
     }).catch((error) => {

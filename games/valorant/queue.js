@@ -2,7 +2,7 @@ import axios from 'axios'
 import { VALORANT_API } from '../valorant/server.js'
 import { regiaoSelector } from './regiao.js'
 
-import getPUUID from './puuid.js'	
+import {getPUUID} from './puuid.js'	
 import { statusPartidaDetalhado } from './matches-status.js'
 
 export default async function getQueueHistory(regiao, puuid){

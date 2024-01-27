@@ -97,7 +97,7 @@ const help = [
     {
         name: commands.kahzix,
         syntax: commands.kahzix,
-        desc: "Retorna uma imagem do Kha'Zix",
+        desc: "Como é o nome daquele campeão que parece uma barata?",
         status: true
     },
 ]

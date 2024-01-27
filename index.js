@@ -2,18 +2,17 @@ import qrcode from 'qrcode-terminal'
 import * as pkg from 'whatsapp-web.js'
 import { getTabela } from './futebol/campeonato/tabela.js';
 import { getDavinciResponse } from './openai/davinci.js';
-import { getModels } from './openai/models.js';
 import { showUnique } from './util/show_unique.js';
 import { getTop10 } from './games/valorant/leaderboard.js';
 import { getCurrentRank } from './games/valorant/rank.js';
-import getQueueHistory, { getQueueHirstoryByGameTag } from './games/valorant/queue.js';
+import { getQueueHirstoryByGameTag } from './games/valorant/queue.js';
 import { commands, getHelp } from './util/commands.js';
 import { getResponseContext } from './games/lol/others.js';
+
 
 const { Client } = pkg;
 
 const client = new Client()
-
 
 client.on('qr', (qr) => {
     qrcode.generate(qr, { small: true })
@@ -27,6 +26,8 @@ client.on('ready', () => {
 
 client.on('message', (msg) => {
 
+    //client.getChatById("120363046345992831@g.us").then((response) => {console.log(response)})
+    
     const bot_commands = commands
 
     let firstWord = ((msg.body.includes(' ')) ? msg.body.substring(0, msg.body.indexOf(" ")) : msg.body);
