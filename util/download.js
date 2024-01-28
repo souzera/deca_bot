@@ -27,8 +27,4 @@ export async function convertImageToBase64(url) {
     return toBase64
 }
 
-export function createMessageMediaKahzix() {
-    return MessageMedia.fromFilePath('downloads/kahzix.png')
-}
-
 
