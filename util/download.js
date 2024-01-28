@@ -1,9 +1,7 @@
 import imageToBase64 from "image-to-base64"
-
 import fs from 'fs'
 import axios from "axios"
 
-import { MessageMedia } from "whatsapp-web.js"
 
 function createFolder() {
     if (!(fs.existsSync('./downloads'))) {
@@ -32,3 +30,5 @@ export async function convertImageToBase64(url) {
 export function createMessageMediaKahzix() {
     return MessageMedia.fromFilePath('downloads/kahzix.png')
 }
+
+
