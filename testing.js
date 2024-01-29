@@ -1,4 +1,5 @@
 import fs from "fs"
+import { getQueueHirstoryByGameTag } from "./games/valorant/queue.js"
 
 async function readFileAndEncodeBase64(filePath) {
     try {
@@ -13,4 +14,6 @@ async function readFileAndEncodeBase64(filePath) {
 const testingDatas = {
     audio: readFileAndEncodeBase64('./downloads/base64-audio.txt')
 }
+
+getQueueHirstoryByGameTag("filipesnow", '6472').then((response) => {console.log(response)})
 
