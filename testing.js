@@ -15,5 +15,6 @@ const testingDatas = {
     audio: readFileAndEncodeBase64('./downloads/base64-audio.txt')
 }
 
-getQueueHirstoryByGameTag("filipesnow", '6472').then((response) => {console.log(response)})
+//jeffsbala#1898
+getQueueHirstoryByGameTag("amad batista", 'ata').then((response) => {console.log(response)})
 

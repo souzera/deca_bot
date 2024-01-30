@@ -21,21 +21,18 @@ export async function getQueueHirstoryByGameTag(gameName, tagName){
     const ppuid = await getPUUID(gameName, tagName).then((response) => {
         return response
     }).catch((error) => {
-        console.log(error)
-        return "not_found"
+        return "puuid_not_found_error  " + error
     })
 
     console.log(ppuid)
 
-    if (ppuid === "not_found") return "🥸🥸 Jogador não encontrado..."
+    if (ppuid.includes("puuid_not_found_error")) return "🥸🥸 Jogador não encontrado..."
 
     else{
 
         const queueHistory = await getQueueHistory('br', ppuid).then((response) => {
-            console.log(response)
-            if (response.data.length === 0) return "🕵️🤫 O jogador ocultou os dados..."
-            else
-            return statusPartidaDetalhado(response)
+            if (response.data.length === 0) return "🕵️🤫 O jogador ocultou os dados..." 
+            else return statusPartidaDetalhado(response)
         })
     
         return queueHistory
