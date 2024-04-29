@@ -8,11 +8,19 @@ import { getCurrentRank } from './games/valorant/rank.js';
 import { getQueueHirstoryByGameTag } from './games/valorant/queue.js';
 import { commands, getHelp } from './util/commands.js';
 import { getResponseContext } from './games/lol/others.js';
+import { pollo } from './games/valorant/others.js';
+import { createSticker } from './util/sticker.js';
+import { options } from './client.js';
 
 
-const { Client } = pkg;
+const { Client, MessageMedia } = pkg;
 
-const client = new Client()
+const client = new Client({
+    webVersionCache: {
+        type: 'remote',
+        remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html',
+        }
+})
 
 client.on('qr', (qr) => {
     qrcode.generate(qr, { small: true })
@@ -26,8 +34,16 @@ client.on('ready', () => {
 
 client.on('message', (msg) => {
 
-    //client.getChatById("120363046345992831@g.us").then((response) => {console.log(response)})
-    
+    const chat = msg.getChat().then((response) => {
+        console.log(`Chat: ${response.name}`)
+        return response
+    })
+
+    msg.getContact().then((response) => {
+        console.log(`${response.pushname} - ${msg.body}\n`)
+    })
+
+
     const bot_commands = commands
 
     let firstWord = ((msg.body.includes(' ')) ? msg.body.substring(0, msg.body.indexOf(" ")) : msg.body);
@@ -110,6 +126,13 @@ client.on('message', (msg) => {
             break
         case bot_commands.kahzix:
             msg.reply(getResponseContext("kahzix"))
+            break
+        case bot_commands.pollo:
+            msg.getChat().then(async (response) => {
+                await response.sendMessage(`Paulo Cartões 🤪🪄\n ${pollo}`, {linkPreview:true})
+            })
+        case bot_commands.sticker:
+            createSticker(msg)
             break
     }
 })

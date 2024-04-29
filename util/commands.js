@@ -12,7 +12,9 @@ export const commands = {
     vlrLeaderboard: "!leaderboard",
     rank: "!rank",
     queue: "!queue",
+    pollo: '!pollo',
     kahzix: "!kahzix",
+    sticker: '!sticker',
 }
 
 const help = [
@@ -100,6 +102,18 @@ const help = [
         desc: "Como é o nome daquele campeão que parece uma barata?",
         status: true
     },
+    {
+        name: commands.pollo,
+        syntax: commands.pollo,
+        desc: "Retorna o clip mais lindo da história do valorant",
+        status: true
+    },
+    {
+        name: commands.sticker,
+        syntax: commands.sticker,
+        desc: "Cria um sticker a partir de uma imagem",
+        status: true
+    }
 ]
 
 

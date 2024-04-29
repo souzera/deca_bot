@@ -1,0 +1,1 @@
+export const pollo = 'https://twitter.com/i/status/1562853725408038912'
