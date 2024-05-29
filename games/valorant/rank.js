@@ -2,10 +2,11 @@ import axios from 'axios'
 import { VALORANT_API } from '../valorant/server.js'
 import { regiaoSelector } from './regiao.js'
 import { statusPartida } from './matches-status.js'
+import { api_options } from './others.js'
 
 export default async function getRank(gameName, tagName, regiao="br") {
     const url = `${VALORANT_API}/valorant/v1/mmr/${regiaoSelector(regiao)}/${gameName}/${tagName}`
-    const rank = await axios.get(url).then((response) => {
+    const rank = await axios.get(url, {headers:api_options}).then((response) => {
         console.log(response.data)
         if (response.data.data.name === null) return 0
         return response.data.data

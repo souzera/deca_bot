@@ -1,5 +1,5 @@
-import { getTabela } from "./futebol/campeonato/tabela.js";
+import { getPUUID, getPlayer } from "./games/valorant/puuid.js";
 
-getTabela().then((tabela) => {
-    console.log(tabela)
+getPlayer('barruada', 'd20').then((response) => {
+    console.log(response)
 })

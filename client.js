@@ -13,5 +13,8 @@ export const options = {
     },
     assemblyaI:{
         apiKey: process.env.ASSEMBLYAI_API_KEY
+    },
+    valorant:{
+        apiKey: process.env.VALORANT_API_KEY
     }
 }

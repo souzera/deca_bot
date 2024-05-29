@@ -129,7 +129,7 @@ client.on('message', (msg) => {
             break
         case bot_commands.pollo:
             msg.getChat().then(async (response) => {
-                await response.sendMessage(`Paulo Cartões 🤪🪄\n ${pollo}`, {linkPreview:true})
+                await response.sendMessage(`Paulo Cartões 🤪🪄\n ${pollo}`,{linkPreview:true})
             })
         case bot_commands.sticker:
             createSticker(msg)

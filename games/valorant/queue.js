@@ -4,11 +4,12 @@ import { regiaoSelector } from './regiao.js'
 
 import {getPUUID} from './puuid.js'	
 import { statusPartidaDetalhado } from './matches-status.js'
+import { api_options } from './others.js'
 
 export default async function getQueueHistory(regiao, puuid){
 
     const url = `${VALORANT_API}/valorant/v1/by-puuid/lifetime/matches/${regiaoSelector(regiao)}/${puuid}?mode=competitive&size=5`
-    const queueHistory = axios.get(url).then((response) => {
+    const queueHistory = axios.get(url, {headers:api_options}).then((response) => {
         return response.data
     }).catch((error) => {
         return error.response.data

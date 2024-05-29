@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { VALORANT_API } from '../valorant/server.js'
 import { regiaoSelector } from './regiao.js'
+import { api_options } from './others.js'
 
 export default async function getLeaderboard(regiao) {
 
     const url = `${VALORANT_API}/valorant/v1/leaderboard/${regiaoSelector(regiao)}` 
-    const leaderboard = await axios.get(url).then((response) => {
+    const leaderboard = await axios.get(url, {headers:api_options}).then((response) => {
         return response.data
     })
     

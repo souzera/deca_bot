@@ -1,8 +1,12 @@
 import axios from 'axios'
 import { VALORANT_API } from '../valorant/server.js'
+import { api_options } from './others.js'
 
 export async function getPlayer(gameName, tagName){
-    const player = axios.get(`${VALORANT_API}/valorant/v1/account/${gameName}/${tagName}`).then((response) => {
+    const player = axios.get(`${VALORANT_API}/valorant/v1/account/${gameName}/${tagName}`, {
+        headers: api_options
+    }).then((response) => {
+        console.log(response)
         return response.data
     }).catch((error) => {
         return error.response.data
